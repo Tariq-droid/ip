@@ -35,7 +35,7 @@ public class Storage {
                 String[] split = taskLine.split(" ");
 
                 if (taskSplit[1].equals("T")){
-                    list.add(new ToDo(taskLine));
+                    addToDo(split, list);
                 }
 
                 if (taskSplit[1].equals("D")){
@@ -70,7 +70,7 @@ public class Storage {
     public String getTask(String[] taskSplit){
         String description = "";
         if (taskSplit[1].equals("T")) {
-            description = "";
+            description = "todo";
         }
         if (taskSplit[1].equals("D")) {
             description = "deadline";
@@ -80,7 +80,7 @@ public class Storage {
         }
         if(taskSplit[1].equals("T")) {
             for (int j = 5; j < taskSplit.length; j++) {
-                description += taskSplit[j] + " ";
+                description += " " + taskSplit[j] ;
             }
 
         } else {
@@ -180,6 +180,29 @@ public class Storage {
 
             }
         }
+    }
+    public void addToDo(String[] echoSplit, ArrayList<Task> list){
+        String task = "";
+        String time = "";
+        boolean hasDuration = false;
+        assert echoSplit.length > 0 : "task length should not be less than 0";
+        for (int i = 1; i < echoSplit.length; i++) {
+
+            if(echoSplit[i].equals("/needs")) {
+                hasDuration = true;
+                for (int j = i + 1; j < echoSplit.length; j++) {
+                    time += echoSplit[i] + " ";
+                }
+                break;
+            }
+            task += echoSplit[i] + " ";
+        }
+        if(hasDuration) {
+            list.add(new DurationTask(task,time));
+        } else {
+            list.add(new ToDo(task));
+        }
+
     }
 
 

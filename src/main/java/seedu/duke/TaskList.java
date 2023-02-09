@@ -73,11 +73,26 @@ public class TaskList {
      */
     public void addToDo(String[] echoSplit){
         String task = "";
+        String time = "";
+        boolean hasDuration = false;
         assert echoSplit.length > 0 : "task length should not be less than 0";
         for (int i = 1; i < echoSplit.length; i++) {
+
+            if(echoSplit[i].equals("/needs")) {
+                hasDuration = true;
+                for (int j = i + 1; j < echoSplit.length; j++) {
+                    time += echoSplit[j] + " ";
+                }
+                break;
+            }
             task += echoSplit[i] + " ";
         }
-        list.add(new ToDo(task));
+        if(hasDuration) {
+            list.add(new DurationTask(task,time));
+        } else {
+            list.add(new ToDo(task));
+        }
+
         System.out.println("    -------------------------------------------\n    "
                 + "added: " + task
                 +"\n    -------------------------------------------");

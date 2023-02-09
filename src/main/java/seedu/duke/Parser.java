@@ -25,12 +25,12 @@ public class Parser {
             throw new DukeException();
         } else if (echoSplit[0].equals("mark")) {
             int index = Integer.valueOf(echoSplit[1]) - 1;
-            assert index > 0 : "index should not be less than 0";
+            assert index >= 0 : "index should not be less than 0";
             tasks.mark(index);
             return "Marked " + (index + 1);
         } else if (echoSplit[0].equals("unmark")) {
             int index = Integer.valueOf(echoSplit[1]) - 1;
-            assert index > 0 : "index should not be less than 0";
+            assert index >= 0 : "index should not be less than 0";
             tasks.unmark(index);
             return "Unmarked " + (index+1);
         } else {
@@ -49,7 +49,7 @@ public class Parser {
                 return "added event task";
             } else if (echoSplit[0].equals("delete")) {
                 int index = Integer.valueOf(echoSplit[1]) - 1;
-                assert index > 0 : "index should not be less than 0";
+                assert index >= 0 : "index should not be less than 0";
                 tasks.delete(index);
                 COUNTER--;
                 return "delete task " + index;
